@@ -17,6 +17,11 @@ def on_join(room):
     join_room(room)
     emit('userHasJoined', {'message': 'user has joined', 'bool': True}, to=room, include_self=False)
 
+@socketio.on('userFinished')
+def userFinished(message, room):
+    print('function called')
+    emit('otherUserFinished', {'message': message}, to=room, include_self=False)
+
 @app.route('/movies')
 @cross_origin(origin='*')
 def return_movies():

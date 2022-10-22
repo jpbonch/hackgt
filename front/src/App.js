@@ -52,6 +52,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [finishedSurvey, setFinishedSurvey] = useState(false);
   const [waiting, setShowWaiting] = useState(false);
+  const [otherUserFinished, setOtherUserFinished] = useState(false);
 
   socket.on('connect', () => {
     console.log(`You connected with id ${socket.id}`);
@@ -78,6 +79,12 @@ function App() {
   socket.on('userHasJoined', () => {
     console.log('User joined');
     setUserHasJoined(true);
+  })
+
+  socket.on('otherUserFinished', () => {
+    console.log("Other finished!")
+    setOtherUserFinished(true);
+    setShowWaiting(false);
   })
 
   const joinRoom = (code) => {
@@ -107,7 +114,6 @@ function App() {
       setShowCode(false);
       setUserHasJoined(false);
       surveySetter();
-      console.log(code);
       socket.emit('ready-event', 'sampleMessageWeMayNotUse', code);
     } else {
       //show message "User hasnt joined"
@@ -125,6 +131,11 @@ function App() {
   const incrementIndex = (id, val) => {
     if (surveyIndex === movies.length-1){
       setFinishedSurvey(true);
+      console.log(code);
+      socket.emit('userFinished', 'message', code);
+      if (!otherUserFinished) {
+        setShowWaiting(true);
+      }
       setSurvey(false);
       const newArray = [{id: id, value: val}].concat(ratings);
       setRatings(newArray);
@@ -200,7 +211,7 @@ function App() {
         }
         
 
-      {finishedSurvey && (
+      {(finishedSurvey && otherUserFinished) && (
         <div>
           <FinalMoviePage />
         </div>
