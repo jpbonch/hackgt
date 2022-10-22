@@ -8,6 +8,20 @@ import Survey from './Survey';
 
 const socket = io('http://localhost:3000');
 
+async function getCode() {
+  let url = 'http://localhost:3000/getCode';
+  try {
+      return fetch(url).then((res) => res.text())
+      .then((text) => {  
+        console.log(text);
+        return text;
+        // console.log(JSON.parse(text)['id']);
+        // return JSON.parse(text)['id'];
+      })
+  } catch (error) {
+      console.log(error);
+  }
+}
 
 function App() {
   const [showSessionButtons, setShowSessionButtons] = useState(true);
@@ -38,16 +52,18 @@ function App() {
   })
 
   const joinRoom = (code) => {
+    console.log(code);
     socket.emit('join-room', code);
   }
 
-  const handleCreate = event => {
+  async function handleCreate (e) {
     setShowSessionButtons(false);
     // fetch 4 digit code from backend
-    let code = '1234';
-    setCode('1234');
+    let codeFromBack = await getCode();
+    console.log(codeFromBack);
+    setCode(codeFromBack);
     setShowCode(true);
-    joinRoom(code);
+    joinRoom(codeFromBack);
   }
 
   const handleJoin = event => {
@@ -61,6 +77,7 @@ function App() {
       setShowCodeInput(false);
       setShowCode(false);
       setSurvey(true);
+      console.log(code);
       socket.emit('ready-event', 'sampleMessageWeMayNotUse', code);
     } else {
       //show message "User hasnt joined"
@@ -101,14 +118,14 @@ function App() {
       {showCode && (
         <div>
           <p>Share Code:</p>
-          <span className='code'>{1234}</span>
+          <span className='code'>{code}</span>
           <p>or</p>
           <p>Share link:</p>
           <TextField
           id="outlined-read-only-input"
           label=""
           fullWidth
-          defaultValue="https://www.movie.com/1234"
+          defaultValue={`http://localhost:3001/${code}`}
           InputProps={{
             readOnly: true,
           }}
