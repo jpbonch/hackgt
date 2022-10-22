@@ -1,8 +1,9 @@
 import './MovieListing.css'
 
 function MovieListing(props) {
-    console.log(props);
-    return (
+  console.log(props);
+    return (<div>
+        <hr></hr>
         <div className="movieListing">
             <h1 className='movieNumber'>2</h1>
             <img
@@ -12,14 +13,20 @@ function MovieListing(props) {
           alt="kys"
           className="tinyPoster"
         ></img>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.</p>
+        <div>
+        <h2 className='movieTitle'>THE GRUMPY COLLECTION</h2>
+        <p className="infoLine">
+            <strong>Genres:</strong> {"Comedy, Family"}
+          </p>
+          <p className="infoLine">
+            <strong>Cast:</strong> {"Even Peters, Tony Stark"}
+          </p>
+        </div>
+        <div>
         <h1 className='moviePercentage'>80%</h1>
+        <span>MATCH</span>
+        </div>
+        </div>
         </div>
     );
 }

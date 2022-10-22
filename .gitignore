@@ -1,0 +1,4 @@
+backFlask/build
+backFlask/venv
+front/build
+*.DS_Store
