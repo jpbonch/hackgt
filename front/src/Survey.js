@@ -5,7 +5,7 @@ import {useState} from 'react';
 
 function Survey(props) {  
     const [sliderValue, setSliderValue] = useState(1);
-
+    console.log(props);
   return (
     <div className="Survey">
       <div className="movieInfo">
@@ -18,26 +18,26 @@ function Survey(props) {
         ></img>
         <div>
           <h2 className="movieTitle" style={{ "margin-bottom": "10px" }}>
-            {props.movie.title.toUpperCase()}
+            {props.movie["title"].toUpperCase()}
           </h2>
           <div>
-            <span>{props.movie.year}</span>&emsp;
-            <span className="ageRating"> {props.movie.ageRating} </span>&emsp;
-            <span>{props.movie.duration}</span>
+            <span>{props.movie["year"]}</span>&emsp;
+            <span className="ageRating"> {props.movie["ageRating"]} </span>&emsp;
+            <span>{props.movie["duration"]}</span>
           </div>
           <br></br>
           <p className="infoLine">
-            <strong>Genres:</strong> {props.movie.genres}
+            <strong>Genres:</strong> {props.movie["genres"]}
           </p>
           <p className="infoLine">
-            <strong>Cast:</strong> {props.movie.cast}
+            <strong>Cast:</strong> {props.movie["cast"]}
           </p>
-          <p>{props.movie.synopsis}</p>
+          <p>{props.movie["synopsis"]}</p>
         </div>
       </div>
       <div className="sliderContainer">
         <Slider marks min={1} max={10} step={1} valueLabelDisplay="on" onChange={(e)=>{setSliderValue(e.target.value)}}/>
-        <Button sx={{ m: 2 }} variant="contained" className="nextButton" onClick={()=>props.incrementIndex(props.movie.id, sliderValue)}>
+        <Button sx={{ m: 2 }} variant="contained" className="nextButton" onClick={()=>props.incrementIndex(props.movie["id"], sliderValue)}>
           →
         </Button>
       </div>

@@ -20,11 +20,29 @@ def on_join(room):
 @app.route('/movies')
 @cross_origin(origin='*')
 def return_movies():
-    return jsonify([{
-        'image': 'link',
-        'synopsis': 'Sample',
-        'title': 'My movie'
-    }])
+    return jsonify({
+            'id': 1,
+            'title': "The Grumpy Collection",
+            'ageRating': "PG-13",
+            'duration': "1h 56m",
+            'genres': "Comedy, Family",
+            'cast': "Evan Peters, Chris Hemsworth",
+            'year': "1993",
+            'synopsis':
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        },
+        {
+            'id': 2,
+            'title': "VKMFLVKSMVMLKMV",
+            'ageRating': "PG-13",
+            'duration': "1h 56m",
+            'genres': "Comedy, Family",
+            'cast': "Evan Peters, Chris Hemsworth",
+            'year': "1993",
+            'synopsis':
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        }
+    )
 
 @app.route('/getCode')
 @cross_origin(origin='*')

@@ -15,18 +15,27 @@ async function getCode() {
   let url = 'http://localhost:3000/getCode';
   try {
       return fetch(url).then((res) => res.text())
-      .then((text) => {  
-        console.log(text);
+      .then((text) => {
         return text;
-        // console.log(JSON.parse(text)['id']);
-        // return JSON.parse(text)['id'];
       })
   } catch (error) {
       console.log(error);
   }
 }
 
-function App(props) {
+async function getMovies() {
+  let url = 'http://localhost:3000/movies';
+  try {
+      return fetch(url).then((res) => res.text())
+      .then((text) => {
+        return JSON.parse(text);
+      })
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+function App() {
   const [showSessionButtons, setShowSessionButtons] = useState(true);
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [showCode, setShowCode] = useState(false);
@@ -36,10 +45,17 @@ function App(props) {
   const [code, setCode] = React.useState('');
   const [surveyIndex, setSurveyIndex] = useState(0);
   const [ratings, setRatings] = useState([]);
+  const [movies, setMovies] = useState([]);
 
   socket.on('connect', () => {
     console.log(`You connected with id ${socket.id}`);
   })
+
+  //Just created this to add async functionality to socket
+  async function surveySetter() {
+    setMovies(await getMovies());
+    setSurvey(true)
+  }
 
   //This is for the person who's on the join side - this message is broadcasted when
   //the create side user is ready
@@ -47,17 +63,17 @@ function App(props) {
     if (obj["bool"]) {
       setShowCodeInput(false);
       setShowCode(false);
-      setSurvey(true);
+      surveySetter()
       console.log(obj["message"]);
     }
   })
 
   socket.on('userHasJoined', () => {
+    console.log('User joined');
     setUserHasJoined(true);
   })
 
   const joinRoom = (code) => {
-    console.log(code);
     socket.emit('join-room', code);
   }
 
@@ -65,7 +81,6 @@ function App(props) {
     setShowSessionButtons(false);
     // fetch 4 digit code from backend
     let codeFromBack = await getCode();
-    console.log(codeFromBack);
     setCode(codeFromBack);
     setShowCode(true);
     joinRoom(codeFromBack);
@@ -77,11 +92,11 @@ function App(props) {
   }
 
   //Function run when user who created room is ready
-  const handleReady = () => {
+  async function handleReady() {
     if (userHasJoined) {
       setShowCodeInput(false);
       setShowCode(false);
-      setSurvey(true);
+      surveySetter();
       console.log(code);
       socket.emit('ready-event', 'sampleMessageWeMayNotUse', code);
     } else {
@@ -110,28 +125,6 @@ function App(props) {
     console.log([...ratings, {id: id, value: val}]);
   }
 
-  var movies = [{
-    id: 1,
-    title: "The Grumpy Collection",
-    ageRating: "PG-13",
-    duration: "1h 56m",
-    genres: "Comedy, Family",
-    cast: "Evan Peters, Chris Hemsworth",
-    year: "1993",
-    synopsis:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  },
-  {
-    id: 2,
-    title: "VKMFLVKSMVMLKMV",
-    ageRating: "PG-13",
-    duration: "1h 56m",
-    genres: "Comedy, Family",
-    cast: "Evan Peters, Chris Hemsworth",
-    year: "1993",
-    synopsis:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  }];
 
   return (
     <div className="App">
