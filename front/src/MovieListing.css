@@ -1,0 +1,17 @@
+.movieListing{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 900px;
+    margin: auto;
+}
+
+.movieNumber{
+    font-style: italic;
+    font-size: 70px;
+}
+
+
+.tinyPoster{
+    width:120px;
+}
