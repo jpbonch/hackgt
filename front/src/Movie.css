@@ -1,0 +1,35 @@
+.poster{
+    width: 250px;
+    box-shadow: 0px 0px 10px 0px black;
+}
+
+.Movie{
+    /* text-align: center; */
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    width: 900px;
+    margin: auto;
+    height: 600px;
+}
+
+.topPick{
+    font-style: italic;
+    font-weight: 800;
+    font-size: 40px;
+}
+
+.container{
+    max-width: 900px;
+    margin: auto;
+}
+
+.movieTitle{
+    font-style: italic;
+    font-size: 30px;
+}
+
+.percentageMatch{
+    font-style: italic;
+    margin: 0;
+}
