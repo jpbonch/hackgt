@@ -3,6 +3,7 @@ import {io} from 'socket.io-client';
 import React from 'react';
 import { Button, TextField } from '@mui/material';
 import {useState} from 'react';
+import { useSearchParams, useParams } from "react-router-dom";
 
 const socket = io('http://localhost:3000');
 
@@ -12,6 +13,8 @@ function App() {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [showCode, setShowCode] = useState(false);
   const [room, setRoom] = React.useState('');
+  const [searchParams] = useSearchParams();
+  const { id } = useParams();
 
   socket.on('connect', () => {
     console.log(`You connected with id ${socket.id}`);
@@ -58,7 +61,7 @@ function App() {
 
       {showCodeInput && (
         <div>
-          <TextField id="outlined-basic" label="Code" variant="outlined" />
+          <TextField id="outlined-basic" label='Code' value={id} variant="outlined" />
         </div>
       )}
 
