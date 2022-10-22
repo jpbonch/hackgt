@@ -6,6 +6,7 @@ import Movie from './Movie';
 import MovieListing from './MovieListing';
 import Survey from './Survey';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import FinalMoviePage from './FinalMoviePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Route path="/:id" element={<App />} />
         <Route path="/movie" element={<Movie />} />
         <Route path="/movieListing" element={<MovieListing />} />
+        <Route path="/finalMovies" element={<FinalMoviePage />} />
       </Routes>
     </BrowserRouter>
     {/* <App /> */}

@@ -1,6 +1,7 @@
 import './MovieListing.css'
 
-function MovieListing() {
+function MovieListing(props) {
+    console.log(props);
     return (
         <div className="movieListing">
             <h1 className='movieNumber'>2</h1>

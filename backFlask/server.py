@@ -56,9 +56,9 @@ def receive_user_ratings():
     print(request.get_data().decode('ascii'))
     return request.get_data().decode('ascii')
 
-@app.route('/finalMovie')
+@app.route('/finalMovies')
 @cross_origin(origin='*')
-def get_final_movie():
+def get_final_movies():
     return jsonify({
             'id': 1,
             'title': "The Grumpy Collection",

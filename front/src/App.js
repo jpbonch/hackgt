@@ -9,6 +9,7 @@ import { Navigate } from "react-router-dom";
 import Movie from './Movie';
 import MovieListing from './MovieListing';
 import Clipboard from './clipboard.png'
+import FinalMoviePage from './FinalMoviePage';
 
 
 
@@ -201,8 +202,7 @@ function App() {
 
       {finishedSurvey && (
         <div>
-          <Movie></Movie>
-          <MovieListing></MovieListing>
+          <FinalMoviePage />
         </div>
       )}
     </div>

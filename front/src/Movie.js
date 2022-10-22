@@ -1,7 +1,8 @@
 import "./Movie.css";
 import Slider from "@mui/material/Slider";
 
-function Movie() {
+function Movie(props) {
+  console.log(props);
   return (
     <div className="container">
       <h1 className="topPick">YOUR TOP PICK</h1>
