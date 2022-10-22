@@ -125,7 +125,6 @@ function App() {
     if (surveyIndex === movies.length-1){
       setFinishedSurvey(true);
       setSurvey(false);
-      window.location.href = "/movie"
       const newArray = [{id: id, value: val}].concat(ratings);
       setRatings(newArray);
       console.log(newArray)

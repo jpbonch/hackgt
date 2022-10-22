@@ -47,13 +47,15 @@ html {
 }
 
 .linkContainer{
-  display: flex;
+  display: flexbox;
   align-items: center;
+  margin: auto;
 }
 
 .copyButton{
   height: 100%;
-  border: 1px solid gray;
+  /* border: 1px solid gray !important; */
+  margin-top: 8px !important;
 }
 
 .clipboard{
@@ -93,7 +95,7 @@ html {
 
 .joinButton{
   transform: skew(-20deg);
-  height: 55px;
+  height: 57px;
   width: 70px;
   left: -20px;
   margin: 0 !important;
