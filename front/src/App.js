@@ -113,16 +113,18 @@ function App() {
     }
   }, []);
   const incrementIndex = (id, val) => {
-    setSurveyIndex(value => Math.min(value+1, movies.length-1)); // To avoid going out of bounds
     if (surveyIndex === movies.length-1){
       window.location.href = "/movie"
-      fetch('endpoint/', {
+      const newArray = [{id: id, value: val}].concat(ratings);
+      setRatings(newArray);
+      console.log(newArray)
+      fetch('http://localhost:3000/userRatings', {
         method: 'POST', 
-        body: JSON.stringify(ratings)
-    })
+        body: JSON.stringify(newArray)
+      })
     }
-    setRatings([...ratings, {id: id, value: val}]);
-    console.log([...ratings, {id: id, value: val}]);
+    setRatings([...ratings, {id: id, value: val}])
+    setSurveyIndex(value => Math.min(value+1, movies.length-1)); // To avoid going out of bounds
   }
 
 

@@ -5,7 +5,6 @@ import {useState} from 'react';
 
 function Survey(props) {  
     const [sliderValue, setSliderValue] = useState(1);
-    console.log(props);
   return (
     <div className="Survey">
       <div className="movieInfo">

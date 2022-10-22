@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_socketio import SocketIO, emit, join_room
 from flask_cors import CORS, cross_origin
 import random
@@ -49,6 +49,12 @@ def return_movies():
 def return_code():
     print('call has been made')
     return str(random.randint(10000, 99999))
+
+@app.route('/userRatings', methods = ['POST'])
+@cross_origin(origin='*')
+def receive_user_ratings():
+    print(request.get_data().decode('ascii'))
+    return request.get_data().decode('ascii')
 
 if __name__ == '__main__':
     socketio.run(app, port=3000)
