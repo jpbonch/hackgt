@@ -7,6 +7,9 @@ import { useSearchParams, useParams } from "react-router-dom";
 import Survey from './Survey';
 import { Navigate } from "react-router-dom";
 import Movie from './Movie';
+import MovieListing from './MovieListing';
+import Clipboard from './clipboard.png'
+
 
 
 const socket = io('http://localhost:3000');
@@ -36,6 +39,8 @@ function App(props) {
   const [code, setCode] = React.useState('');
   const [surveyIndex, setSurveyIndex] = useState(0);
   const [ratings, setRatings] = useState([]);
+  const [finishedSurvey, setFinishedSurvey] = useState(false);
+  const [waiting, setShowWaiting] = useState(false);
 
   socket.on('connect', () => {
     console.log(`You connected with id ${socket.id}`);
@@ -46,6 +51,7 @@ function App(props) {
   socket.on('receive-from-server', obj => {
     if (obj["bool"]) {
       setShowCodeInput(false);
+      setShowWaiting(false);
       setShowCode(false);
       setSurvey(true);
       console.log(obj["message"]);
@@ -59,6 +65,8 @@ function App(props) {
   const joinRoom = (code) => {
     console.log(code);
     socket.emit('join-room', code);
+    setShowCodeInput(false);
+    setShowWaiting(true);
   }
 
   async function handleCreate (e) {
@@ -68,7 +76,7 @@ function App(props) {
     console.log(codeFromBack);
     setCode(codeFromBack);
     setShowCode(true);
-    joinRoom(codeFromBack);
+    socket.emit('join-room', codeFromBack);
   }
 
   const handleJoin = event => {
@@ -82,6 +90,7 @@ function App(props) {
       setShowCodeInput(false);
       setShowCode(false);
       setSurvey(true);
+      setUserHasJoined(false);
       console.log(code);
       socket.emit('ready-event', 'sampleMessageWeMayNotUse', code);
     } else {
@@ -100,14 +109,16 @@ function App(props) {
   const incrementIndex = (id, val) => {
     setSurveyIndex(value => Math.min(value+1, movies.length-1)); // To avoid going out of bounds
     if (surveyIndex === movies.length-1){
-      window.location.href = "/movie"
+      setFinishedSurvey(true);
+      setSurvey(false);
       fetch('endpoint/', {
         method: 'POST', 
         body: JSON.stringify(ratings)
     })
     }
     setRatings([...ratings, {id: id, value: val}]);
-    console.log([...ratings, {id: id, value: val}]);
+    console.log(ratings)
+    
   }
 
   var movies = [{
@@ -135,11 +146,13 @@ function App(props) {
 
   return (
     <div className="App">
-      <h1 className='title'>Movie Match</h1>
+      <h1 className='title'>MOVIE MATCH</h1>
       {showSessionButtons && (
         <div>
-      <Button sx={{m:2}} variant="contained" onClick={handleCreate}>Create a Session</Button>
-      <Button sx={{m:2}} variant="outlined" onClick={handleJoin}>Join a Session</Button>
+      <Button sx={{m:2}} variant="contained" onClick={handleCreate} className="sessionButton">
+        <span class="sessionText">Create a Session</span></Button>
+      <Button sx={{m:2}} variant="outlined" onClick={handleJoin} className="sessionButton">
+        <span class="sessionText">Join a Session</span></Button>
       </div>
       )}
       
@@ -152,34 +165,50 @@ function App(props) {
           <TextField id="code-text-box" label='Code' value={code} variant="outlined" onChange={() => {
             setCode(document.getElementById('code-text-box').value)
           }}/>
-          <Button sx={{m:2}} variant="outlined" onClick={() => joinRoom(code)}>Join</Button>
+          <Button sx={{m:2}} className="joinButton" variant="contained" onClick={() => joinRoom(code)}>Join</Button>
         </div>
       )}
 
-      {showCode && (
+      {waiting && (
         <div>
-          <p>Share Code:</p>
-          <span className='code'>{code}</span>
-          <p>or</p>
-          <p>Share link:</p>
+          
+          <div class="loader-wrapper">
+          <div class="loader"></div>
+        </div>
+        Waiting for other user...
+        </div>
+      )}
+
+      {showCode && !(userHasJoined) && (
+        <div>
+          <p><i>SHARE CODE:</i></p>
+          <span className='code'><b>{code}</b></span>
+          <p>-- or --</p>
+          <p><i>SHARE LINK:</i></p>
+          <div class="linkContainer">
           <TextField
           id="outlined-read-only-input"
           label=""
           fullWidth
+          className="linkfield"
           defaultValue={`http://localhost:3001/${code}`}
           InputProps={{
             readOnly: true,
           }}
-        />
-        {userHasJoined && <TextField
-          label=""
-          fullWidth
-          defaultValue="User has joined"
-          InputProps={{
-            readOnly: true,
-          }}
-        />}
+        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`http://localhost:3001/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
+       </div>)}
+        {userHasJoined && (
+        <div>
+          <p>User has joined!</p>
         <Button sx={{m:2}} variant="outlined" onClick={handleReady}>Ready</Button>
+        </div>)
+        }
+        
+
+      {finishedSurvey && (
+        <div>
+          <Movie></Movie>
+          <MovieListing></MovieListing>
         </div>
       )}
     </div>
