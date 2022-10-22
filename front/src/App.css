@@ -1,6 +1,7 @@
 html {
   font-family: 'Lato', sans-serif;
   font-family: 'Roboto', sans-serif; 
+  /* background-color: #FFCF67; */
 }
 
 .App{
@@ -17,9 +18,87 @@ html {
 }
 
 .code{
-  font-size: 30px;
+  font-size: 40px;
 }
 
 .title{
   font-size: 50px;
+  font-style: italic;
+  font-weight: 800;
+}
+
+.sessionButton{
+  transform: skew(-20deg);
+  box-shadow: 0px 0px 30px 1px gray !important;
+  width: 50%;
+  /* background-color: #545761 !important; */
+}
+
+.sessionText{
+  transform: skew(20deg);
+  font-size: 20px;
+}
+
+.linkfield{
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  width: 50% !important;
+  margin: auto;
+}
+
+.linkContainer{
+  display: flex;
+  align-items: center;
+}
+
+.copyButton{
+  height: 100%;
+  border: 1px solid gray;
+}
+
+.clipboard{
+  width: 27px
+}
+
+.loader-wrapper {
+  width: 50%;
+  height: 50%;
+  /* position: fixed; */
+  text-align: center;
+  display: grid;
+  place-items: center;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.loader {
+  border: 16px solid #e3e3e3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.joinButton{
+  transform: skew(-20deg);
+  height: 55px;
+  width: 70px;
+  left: -20px;
+  margin: 0 !important;
+}
+
+#code-text-box{
+  width: 300px
 }

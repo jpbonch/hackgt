@@ -56,5 +56,32 @@ def receive_user_ratings():
     print(request.get_data().decode('ascii'))
     return request.get_data().decode('ascii')
 
+@app.route('/finalMovie')
+@cross_origin(origin='*')
+def get_final_movie():
+    return jsonify({
+            'id': 1,
+            'title': "The Grumpy Collection",
+            'ageRating': "PG-13",
+            'duration': "1h 56m",
+            'genres': "Comedy, Family",
+            'cast': "Evan Peters, Chris Hemsworth",
+            'year': "1993",
+            'synopsis':
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        },
+        {
+            'id': 2,
+            'title': "VKMFLVKSMVMLKMV",
+            'ageRating': "PG-13",
+            'duration': "1h 56m",
+            'genres': "Comedy, Family",
+            'cast': "Evan Peters, Chris Hemsworth",
+            'year': "1993",
+            'synopsis':
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        }
+    )
+
 if __name__ == '__main__':
     socketio.run(app, port=3000)
