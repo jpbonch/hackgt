@@ -1,0 +1,40 @@
+.Survey{
+    max-width: 900px;
+    margin: auto;
+    margin-top: 30px;
+    text-align: left;
+    
+}
+
+.movieInfo{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 30px;
+}
+
+.ageRating{
+    border: 1px solid black;
+    border-radius: 5px;
+    
+}
+
+.infoLine{
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.sliderContainer{
+    display: flex;
+    align-items: center;
+
+}
+
+.MuiSlider-thumb{
+    color: black;
+  }
+  .MuiSlider-rail{
+    color:gray;
+  }
+  .MuiSlider-track{
+    color: black;
+  }

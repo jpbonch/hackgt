@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Movie from './Movie';
 import MovieListing from './MovieListing';
+import Survey from './Survey';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
