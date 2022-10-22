@@ -15,6 +15,11 @@ function Movie() {
         ></img>
         <div>
           <h2 className="movieTitle">THE GRUMPY COLLECTION</h2>
+          <div>
+            <span>1993</span>&emsp;
+            <span className="ageRating"> {"PG-13"} </span>&emsp;
+            <span>{"1h 56m"}</span>
+          </div>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim

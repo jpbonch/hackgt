@@ -1,9 +1,9 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_socketio import SocketIO, emit, join_room
 from flask_cors import CORS, cross_origin
 import random
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="build/static", template_folder="build")
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
@@ -16,6 +16,11 @@ def handle_ready_event(message, room):
 def on_join(room):
     join_room(room)
     emit('userHasJoined', {'message': 'user has joined', 'bool': True}, to=room, include_self=False)
+
+@app.route('/')
+@cross_origin(origin='*')
+def index():
+    return render_template('index.html')
 
 @app.route('/movies')
 @cross_origin(origin='*')

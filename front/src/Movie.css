@@ -7,10 +7,10 @@
     /* text-align: center; */
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr 8fr 1fr;
     width: 900px;
     margin: auto;
-    height: 600px;
+    height: 430px;
+    text-align: left;
 }
 
 .topPick{
