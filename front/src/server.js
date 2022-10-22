@@ -9,10 +9,11 @@ io.on('connection', socket => {
     socket.on('ready-event', (message, room) => {
         if (room !== '') {
             console.log(message);
-            socket.to(room).emit('receive-from-server', message);
+            socket.to(room).emit('receive-from-server', {"message": message, "bool": true});
         }
     })
     socket.on('join-room', room => {
         socket.join(room);
+        socket.to(room).emit('userHasJoined', {"message": 'user has joined', "bool": true});
     })
 })
