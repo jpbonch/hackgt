@@ -276,8 +276,10 @@ function App() {
           defaultValue={`https://matchflixgt.herokuapp.com/#/${code}`}
           InputProps={{
             readOnly: true,
+            endAdornment: <Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/#/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button>
           }}
-        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/#/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
+          sx={{ input: { color: 'white' } }}
+        ></TextField></div>
        </div>)}
         {userHasJoined && (
         <div>
