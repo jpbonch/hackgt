@@ -4,7 +4,7 @@ import MovieListing from "./MovieListing";
 
 
 async function getFinalMovies() {
-    let url = 'http://localhost:3000/finalMovies';
+    let url = '/finalMovies';
     try {
         return fetch(url).then((res) => res.text())
         .then((text) => {

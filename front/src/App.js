@@ -13,10 +13,10 @@ import FinalMoviePage from './FinalMoviePage';
 
 
 
-const socket = io('http://localhost:3000');
+const socket = io("https://" + document.domain + ":" + window.location.port);
 
 async function getCode() {
-  let url = 'http://localhost:3000/getCode';
+  let url = '/getCode';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -28,7 +28,7 @@ async function getCode() {
 }
 
 async function getMovies() {
-  let url = 'http://localhost:3000/movies';
+  let url = '/movies';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -140,7 +140,7 @@ function App() {
       const newArray = [{id: id, value: val}].concat(ratings);
       setRatings(newArray);
       console.log(newArray)
-      fetch('http://localhost:3000/userRatings', {
+      fetch('/userRatings', {
         method: 'POST', 
         body: JSON.stringify(newArray)
       })
@@ -197,11 +197,11 @@ function App() {
           label=""
           fullWidth
           className="linkfield"
-          defaultValue={`http://localhost:3001/${code}`}
+          defaultValue={`https://moviematchgt.herokuapp.com/${code}`}
           InputProps={{
             readOnly: true,
           }}
-        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`http://localhost:3001/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
+        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://moviematchgt.herokuapp.com/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
        </div>)}
         {userHasJoined && (
         <div>
