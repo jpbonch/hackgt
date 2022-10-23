@@ -5,13 +5,23 @@
 
 .Movie{
     /* text-align: center; */
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
     width: 900px;
     margin: auto;
-    height: 430px;
+    height: 400px;
     text-align: left;
+    align-items: center;
 }
+
+
+@media only screen and (max-width: 600px) {
+    .Movie{
+        flex-direction: column;
+    }
+    .poster{
+        width: 50%;
+    }
+  }
 
 .topPick{
     font-style: italic;
