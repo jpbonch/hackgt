@@ -1,7 +1,8 @@
 html {
   font-family: 'Lato', sans-serif;
   font-family: 'Roboto', sans-serif; 
-  /* background-color: #FFCF67; */
+  background-color: #4d5061;
+  color: white;
 }
 
 .App{
@@ -25,13 +26,29 @@ html {
   font-size: 50px;
   font-style: italic;
   font-weight: 800;
+  display: inline;
+  margin-top: 10px;
 }
 
 .sessionButton{
   transform: skew(-20deg);
-  box-shadow: 0px 0px 30px 1px gray !important;
+  /* box-shadow: 0px 0px 2px 1px white !important; */
   width: 50%;
   /* background-color: #545761 !important; */
+}
+.header{
+  margin-bottom: 50px;
+}
+
+.backButton{
+  top:-10px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.backButton:hover{
+  cursor: pointer;
 }
 
 .sessionText{
@@ -91,6 +108,10 @@ html {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.joinText{
+  transform: skew(20deg);
 }
 
 .joinButton{

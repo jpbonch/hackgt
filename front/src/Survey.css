@@ -7,11 +7,15 @@
 }
 
 .movieInfo{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
+    display: flex;
+    align-items: center;
     margin-bottom: 30px;
 }
 
+.poster{
+    margin-right: 100px;
+    width:80%
+}
 .ageRating{
     border: 1px solid black;
     border-radius: 5px;

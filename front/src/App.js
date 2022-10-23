@@ -10,6 +10,23 @@ import Movie from './Movie';
 import MovieListing from './MovieListing';
 import Clipboard from './clipboard.png'
 import FinalMoviePage from './FinalMoviePage';
+import HomeIcon from '@mui/icons-material/Home';
+import Anim from './Anim';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: "#ffffff",
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#11cb5f',
+    },
+  },
+});
+
 
 
 
@@ -149,13 +166,34 @@ function App() {
     setSurveyIndex(value => Math.min(value+1, movies.length-1)); // To avoid going out of bounds
   }
 
+  const handleBack = () => {
+    setShowSessionButtons(true);
+    setShowCodeInput(false);
+    setShowCode(false);
+    setSurvey(false);
+    setUserHasJoined(false);
+    setCode('');
+    setSurveyIndex(0);
+    setRatings([]);
+    setMovies([]);
+    setFinishedSurvey(false);
+    setShowWaiting(false);
+    setOtherUserFinished(false);
+
+    // Leave websocket room @vini
+  }
 
   return (
     <div className="App">
-      <h1 className='title'>MOVIE MATCH</h1>
+      <ThemeProvider theme={theme}>
+      <div className='header'>
+        <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button>
+        <h1 className='title'>MOVIE MATCH</h1>
+      </div>
       {showSessionButtons && (
         <div>
-      <Button sx={{m:2}} variant="contained" onClick={handleCreate} className="sessionButton">
+          <Anim></Anim>
+      <Button sx={{m:2}} variant="contained" onClick={handleCreate} className="sessionButton" color="primary">
         <span class="sessionText">Create a Session</span></Button>
       <Button sx={{m:2}} variant="outlined" onClick={handleJoin} className="sessionButton">
         <span class="sessionText">Join a Session</span></Button>
@@ -171,7 +209,7 @@ function App() {
           <TextField id="code-text-box" label='Code' value={code} variant="outlined" onChange={() => {
             setCode(document.getElementById('code-text-box').value)
           }}/>
-          <Button sx={{m:2}} className="joinButton" variant="contained" onClick={() => joinRoom(code)}>Join</Button>
+          <Button sx={{m:2}} className="joinButton" variant="contained" onClick={() => joinRoom(code)}><span class="joinText">Join</span></Button>
         </div>
       )}
 
@@ -216,6 +254,7 @@ function App() {
           <FinalMoviePage />
         </div>
       )}
+      </ThemeProvider>
     </div>
   );
 }
