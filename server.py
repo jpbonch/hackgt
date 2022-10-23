@@ -94,4 +94,4 @@ def get_final_movies():
     )
 
 if __name__ == '__main__':
-    socketio.run(app, port=3000)
+    app.run()
