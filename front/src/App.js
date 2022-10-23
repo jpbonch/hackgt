@@ -30,7 +30,8 @@ const theme = createTheme({
 
 
 
-const socket = io("https://" + document.domain + ":" + window.location.port);
+//const socket = io("https://" + document.domain + ":" + window.location.port);
+const socket = io("http://localhost:3000")
 
 async function getCode() {
   let url = 'https://matchflixgt.herokuapp.com/getCode';
@@ -120,6 +121,7 @@ function App() {
 
   socket.on('finished-training', () => {
     setShowTrainingWaiting(false);
+    console.log('whassup')
   })
 
   const joinRoom = (code) => {
@@ -175,9 +177,9 @@ function App() {
       const newArray = [{id: id, value: val}].concat(ratings);
       setRatings(newArray);
       console.log(newArray)
-      fetch('https://matchflixgt.herokuapp.com/userRatings', {
+      fetch('http://localhost:3000/userRatings', {
         method: 'POST', 
-        body: {array: JSON.stringify(newArray), id: code}
+        body: JSON.stringify({array: newArray, id: code})
       })
     }
     setRatings([...ratings, {id: id, value: val}])

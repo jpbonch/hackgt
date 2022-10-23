@@ -12,7 +12,7 @@ import pandas as pd
 
 # Load ML model and weights, process data
 reconstructed_model = keras.models.load_model("myModel2")
-movies = pd.read_csv('top500.csv')
+movies = pd.read_csv('movies500.csv')
 
 item_data = list(set(movies.id))
 item_data = [x for x in item_data if x < 1000000]
@@ -39,6 +39,10 @@ def on_join(room):
 def userFinished(message, room):
     print('function called')
     emit('otherUserFinished', {'message': message}, to=room, include_self=False)
+
+# @socketio.on('finish')
+# def finish_training(room):
+#     emit('finished-training', 'sampleMessage', to=room, include_self=False)
     
 @app.route('/')
 @cross_origin(origin='*')
@@ -84,16 +88,17 @@ dictionary = {}
 @cross_origin(origin='*')
 def receive_user_ratings():
     print(dictionary)
+    print(json.loads(request.get_data().decode('ascii')))
     code = json.loads(request.get_data().decode('ascii'))["id"]
     key_list = json.loads(request.get_data().decode('ascii'))["array"]
     
-    user_ratings = []
-    movies_rated = []
-    for pair in key_list:
-        movies_rated.append(pair['id'])
-        user_ratings.append(pair['value'])
-    # user_ratings = np.array([2.0, 3.0, 3.0, 3.0, 3.0, 3.0])
-    # movies_rated = np.array([98, 673, 557, 8844, 254, 58])
+    # user_ratings = []
+    # movies_rated = []
+    # for pair in key_list:
+    #     movies_rated.append(pair['id'])
+    #     user_ratings.append(pair['value'])
+    user_ratings = np.array([2.0, 3.0, 3.0, 3.0, 3.0, 3.0])
+    movies_rated = np.array([98, 673, 557, 8844, 254, 58])
 
     user_ratings = np.array([user_ratings for x in range(num_movies)])
     movies_rated = np.array([movies_rated for x in range(num_movies)])
@@ -134,11 +139,11 @@ def receive_user_ratings():
         user_dict[1] = movie_and_prediction_dict
         dictionary[code] = user_dict
 
-        
-        request.get_data().decode('ascii')['array']
-    emit('finished-training', 'sampleMessage', to=code, include_self=False)
-    print(request.get_data().decode('ascii')['array'])
-    return request.get_data().decode('ascii')['array']
+    # finish_training(code)
+    socketio.emit('finished-training', 'sampleMessage', to=code)
+    print('trained')
+
+    return 'trained'
 
 
 @app.route('/finalMovies')
