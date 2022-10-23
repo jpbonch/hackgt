@@ -1,4 +1,6 @@
+from codecs import getdecoder
 from flask import Flask, jsonify, request, render_template
+from matplotlib.pyplot import title
 from flask_socketio import SocketIO, emit, join_room
 from flask_cors import CORS, cross_origin
 import random
@@ -9,7 +11,7 @@ import numpy as np
 import pandas as pd
 
 # Load ML model and weights, process data
-reconstructed_model = keras.models.load_model("myModel2.1")
+reconstructed_model = keras.models.load_model("myModel2")
 movies = pd.read_csv('top500.csv')
 
 item_data = list(set(movies.id))
@@ -117,8 +119,10 @@ def receive_user_ratings():
         if len(common_movies_list) > 0:
             common_movies_list.sort(reverse=True, key= lambda x: (
                 others_movie_prediction_dict[x] + movie_and_prediction_dict[x] -
-                abs(others_movie_prediction_dict[x] + movie_and_prediction_dict[x])/3
+                abs(others_movie_prediction_dict[x] + movie_and_prediction_dict[x])/2
             ))
+        
+            dictionary[code][2] = common_movies_list
 
         else:
             # nothing in common
@@ -140,30 +144,61 @@ def receive_user_ratings():
 @app.route('/finalMovies')
 @cross_origin(origin='*')
 def get_final_movies():
+    
+    # Implement way to get session code
     code =  request.args.get('code')
-    return jsonify({
-            'id': 1,
-            'title': "The Grumpy Collection",
-            'ageRating': "PG-13",
-            'duration': "1h 56m",
-            'genres': "Comedy, Family",
-            'cast': "Evan Peters, Chris Hemsworth",
-            'year': "1993",
-            'synopsis':
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        },
-        {
-            'id': 2,
-            'title': "VKMFLVKSMVMLKMV",
-            'ageRating': "PG-13",
-            'duration': "1h 56m",
-            'genres': "Comedy, Family",
-            'cast': "Evan Peters, Chris Hemsworth",
-            'year': "1993",
-            'synopsis':
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        }
-    )
+    final_list = dictionary[code][2]
+
+    return_object = []
+
+    for i in range(5):
+        if i > len(final_list):
+            break
+        
+        movie_list = movies.loc[movies['id'] == final_list[i]]
+        movie_title = movie_list.iloc[0]['title']
+        genres = movie_list.iloc[0]['genres']
+        movie_genres = ", ".join([x.name for x in genres])
+        movie_poster_path = movie_list.iloc[0]['poster_path']
+        movie_vote_average = movie_list.iloc[0]['vote_average']
+        movie_description = movie_list.iloc[0]['overview']
+        
+        return_object.append({
+            'id': final_list[i],
+            'title': movie_title,
+            'genres': movie_genres,
+            'synopsis': movie_description,
+            'ageRating': movie_vote_average,
+            'poster_path': movie_poster_path,
+
+        })
+
+
+
+    
+    return jsonify(return_object)
+
+        #     'id': 1,
+        #     'title': "The Grumpy Collection",
+        #     'ageRating': "PG-13",
+        #     'duration': "1h 56m",
+        #     'genres': "Comedy, Family",
+        #     'cast': "Evan Peters, Chris Hemsworth",
+        #     'year': "1993",
+        #     'synopsis':
+        #     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        # },
+        # {
+        #     'id': 2,
+        #     'title': "VKMFLVKSMVMLKMV",
+        #     'ageRating': "PG-13",
+        #     'duration': "1h 56m",
+        #     'genres': "Comedy, Family",
+        #     'cast': "Evan Peters, Chris Hemsworth",
+        #     'year': "1993",
+        #     'synopsis':
+        #     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        # }
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=int(os.environ.get('PORT', 3000)))
