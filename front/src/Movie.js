@@ -14,21 +14,15 @@ function Movie(props) {
           alt="kys"
           className="poster"
         ></img>
-        <div>
-          <h2 className="movieTitle">THE GRUMPY COLLECTION</h2>
+        <div className="movieBox">
+          <h2 className="movieTitle">{props.movie.title}</h2>
           <div>
-            <span>1993</span>&emsp;
-            <span className="ageRating"> {"PG-13"} </span>&emsp;
-            <span>{"1h 56m"}</span>
+            <span>{props.movie.year}</span>&emsp;
+            <span className="ageRating"> {props.movie.ageRating} </span>&emsp;
+            <span>{props.movie.duration}</span>
           </div>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            {props.movie.synopsis}
           </p><br></br>
           <h2 className="percentageMatch">% MATCH</h2>
           <Slider sx={{ m: 0 }} disabled defaultValue={80} aria-label="Disabled slider" valueLabelDisplay="on" />

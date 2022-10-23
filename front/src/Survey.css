@@ -8,12 +8,12 @@
 
 .movieInfo{
     display: flex;
-    align-items: center;
     margin-bottom: 30px;
 }
 
 .poster{
-    margin-right: 100px;
+    margin-right: 20px;
+    margin-left: 20px;
     width:80%
 }
 .ageRating{
@@ -42,3 +42,16 @@
   .MuiSlider-track{
     color: black;
   }
+
+
+  @media only screen and (max-width: 600px) {
+    .movieInfo{
+        flex-direction: column;
+        align-items: center;
+    }
+  }
+
+.movieBox{
+    margin-left: 20px;
+    margin-right: 20px;
+}
