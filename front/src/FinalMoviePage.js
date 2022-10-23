@@ -26,7 +26,7 @@ function FinalMoviePage() {
         setNumberOneMovie(data[0]);
         const array = []
         for (let i = 1; i < data.length; i++) {
-            array.push(<MovieListing key={i+1} movie={data[i]} />)
+            array.push(<MovieListing key={i} listId={i+1} movie={data[i]} />)
         }
         setMovies(array);
     }
@@ -36,7 +36,7 @@ function FinalMoviePage() {
     }, [])
 
     return (
-        <div>
+        <div style={{marginBottom: "100px"}}>
             <Movie movie={numberOneMovie}></Movie>
             {movies}
         </div>

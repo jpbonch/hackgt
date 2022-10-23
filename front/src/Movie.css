@@ -29,8 +29,8 @@
 }
 
 .container{
-    max-width: 900px;
     margin: auto;
+    margin-bottom: 30px;
 }
 
 .movieTitle{
