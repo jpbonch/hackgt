@@ -30,8 +30,8 @@ const theme = createTheme({
 
 
 
-const socket = io("https://" + document.domain + ":" + window.location.port);
-// const socket = io("http://localhost:3000");
+// const socket = io("https://" + document.domain + ":" + window.location.port);
+const socket = io("http://localhost:3000");
 
 async function getCode() {
   let url = 'https://matchflixgt.herokuapp.com/getCode';

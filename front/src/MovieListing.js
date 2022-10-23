@@ -5,7 +5,7 @@ function MovieListing(props) {
     return (<div>
         <hr></hr>
         <div className="movieListing">
-            <h1 className='movieNumber'>2</h1>
+            <h1 className='movieNumber'>{props.key}</h1>
             <img
           src={
             "https://image.tmdb.org/t/p/original/nLvUdqgPgm3F85NMCii9gVFUcet.jpg"
@@ -14,12 +14,12 @@ function MovieListing(props) {
           className="tinyPoster"
         ></img>
         <div>
-        <h2 className='movieTitle'>THE GRUMPY COLLECTION</h2>
+        <h2 className='movieTitle'>{props.movie.title.toUpperCase()}</h2>
         <p className="infoLine">
-            <strong>Genres:</strong> {"Comedy, Family"}
+            <strong>Genres:</strong> {props.movie.genres}
           </p>
           <p className="infoLine">
-            <strong>Cast:</strong> {"Even Peters, Tony Stark"}
+            <strong>Cast:</strong> {props.movie.cast}
           </p>
         </div>
         <div>

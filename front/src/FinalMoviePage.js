@@ -26,7 +26,7 @@ function FinalMoviePage() {
         setNumberOneMovie(data[0]);
         const array = []
         for (let i = 1; i < data.length; i++) {
-            array.push(<MovieListing movie={data[i]} />)
+            array.push(<MovieListing key={i+1} movie={data[i]} />)
         }
         setMovies(array);
     }
@@ -38,7 +38,7 @@ function FinalMoviePage() {
     return (
         <div>
             <Movie movie={numberOneMovie}></Movie>
-            <MovieListing movies={movies.slice(1)}></MovieListing>
+            {movies}
         </div>
     )
 }
