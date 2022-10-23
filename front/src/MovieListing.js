@@ -14,7 +14,7 @@ function MovieListing(props) {
           className="tinyPoster"
         ></img>
         <div>
-        <h2 className='movieTitle'>{props.movie.title.toUpperCase()}</h2>
+        <h2 className='movieTitle'>{props.movie.title}</h2>
         <p className="infoLine">
             <strong>Genres:</strong> {props.movie.genres}
           </p>

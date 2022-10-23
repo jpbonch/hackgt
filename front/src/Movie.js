@@ -15,7 +15,7 @@ function Movie(props) {
           className="poster"
         ></img>
         <div className="movieBox">
-          <h2 className="movieTitle">{props.movie.title.toUpperCase()}</h2>
+          <h2 className="movieTitle">{props.movie.title}</h2>
           <div>
             <span>{props.movie.year}</span>&emsp;
             <span className="ageRating"> {props.movie.ageRating} </span>&emsp;
