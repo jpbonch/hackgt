@@ -75,7 +75,7 @@ def receive_user_ratings():
     else:
         dictionary[code] = request.get_data().decode('ascii')['array']
     print(request.get_data().decode('ascii')['array'])
-    return request.get_data().decode('ascii'['array'])
+    return request.get_data().decode('ascii')['array']
 
 @app.route('/finalMovies')
 @cross_origin(origin='*')
