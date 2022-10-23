@@ -1,6 +1,5 @@
 from codecs import getdecoder
 from flask import Flask, jsonify, request, render_template
-from matplotlib.pyplot import title
 from flask_socketio import SocketIO, emit, join_room
 from flask_cors import CORS, cross_origin
 import random
