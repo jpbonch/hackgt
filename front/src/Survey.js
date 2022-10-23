@@ -1,10 +1,14 @@
 import "./Survey.css";
 import { Slider, Button } from "@mui/material";
 import {useState} from 'react';
+import { Rating } from 'react-simple-star-rating';  
 
 
 function Survey(props) {  
-    const [sliderValue, setSliderValue] = useState(1);
+    const [rating, setRating] = useState(0);
+    const handleRating = (rate) => {
+      setRating(rate)
+    }
   return (
     <div className="Survey">
       <div className="movieInfo">
@@ -35,8 +39,12 @@ function Survey(props) {
         </div>
       </div>
       <div className="sliderContainer">
-        <Slider marks min={1} max={10} step={1} valueLabelDisplay="on" onChange={(e)=>{setSliderValue(e.target.value)}}/>
-        <Button sx={{ m: 2 }} variant="contained" className="nextButton" onClick={()=>props.incrementIndex(props.movie["id"], sliderValue)}>
+        <Rating
+            onClick={handleRating}
+            size='75px'
+            style={{ margin:'auto' }}
+          />
+        <Button sx={{ m: 2 }} variant="contained" className="nextButton" onClick={()=>props.incrementIndex(props.movie["id"], rating)}>
           →
         </Button>
       </div>
