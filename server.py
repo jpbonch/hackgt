@@ -4,7 +4,7 @@ from flask_cors import CORS, cross_origin
 import random
 import os
 
-app = Flask(__name__, static_folder="build/static", template_folder="build")
+app = Flask(__name__, static_folder="front/build/static", template_folder="front/build")
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, cors_allowed_origins="*")
 
