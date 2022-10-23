@@ -22,16 +22,12 @@
     font-weight: bold;
 }
 
-.percentageContainer{
-    width: 100%;
-}
-
 @media only screen and (max-width: 600px) {
     .percentageContainer{
         display: none;
     }
     .movieListing{
-        justify-content: left;
+        justify-content: space-around;
     }
     .movieNumber{
         display: none;
