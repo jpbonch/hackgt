@@ -125,3 +125,7 @@ html {
 #code-text-box{
   width: 300px
 }
+
+.joinButtonContainer{
+  white-space: nowrap;
+}

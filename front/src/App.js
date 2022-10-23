@@ -70,6 +70,7 @@ function App() {
   const [finishedSurvey, setFinishedSurvey] = useState(false);
   const [waiting, setShowWaiting] = useState(false);
   const [otherUserFinished, setOtherUserFinished] = useState(false);
+  const [invalidCode, setInvalidCode] = useState(false);
 
   socket.on('connect', () => {
     console.log(`You connected with id ${socket.id}`);
@@ -205,12 +206,21 @@ function App() {
         <Survey movie={movies[surveyIndex]} incrementIndex={incrementIndex}></Survey>
       )}
       {showCodeInput && (
-        <div>
+        <div className="joinButtonContainer">
           <TextField id="code-text-box" label='Code' value={code} variant="outlined" onChange={() => {
             setCode(document.getElementById('code-text-box').value)
           }}/>
-          <Button sx={{m:2}} className="joinButton" variant="contained" onClick={() => joinRoom(code)}><span class="joinText">Join</span></Button>
+          <Button sx={{m:2}} className="joinButton" variant="contained" onClick={() => {
+            if((!isNaN(parseFloat(code)) && isFinite(code)) && code >= 10000 && code <= 99999){
+              joinRoom(code);
+            } else {
+              setInvalidCode(true);
+            }
+            }}><span class="joinText">Join</span></Button>
         </div>
+      )}
+      {showCodeInput && invalidCode && (
+        <p>Invalid code</p>
       )}
 
       {waiting && (
