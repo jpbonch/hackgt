@@ -15,7 +15,7 @@ function Survey(props) {
         <img
           className="poster"
           src={
-            "https://image.tmdb.org/t/p/original/nLvUdqgPgm3F85NMCii9gVFUcet.jpg"
+            `https://image.tmdb.org/t/p/original/${props.movie["posterpath"]}`
           }
           alt="Poster"
         ></img>
@@ -24,9 +24,7 @@ function Survey(props) {
             {props.movie["title"].toUpperCase()}
           </h2>
           <div>
-            <span>{props.movie["year"]}</span>&emsp;
             <span className="ageRating"> {props.movie["ageRating"]} </span>&emsp;
-            <span>{props.movie["duration"]}</span>
           </div>
           <br></br>
           <p className="infoLine">
