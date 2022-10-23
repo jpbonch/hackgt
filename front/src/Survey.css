@@ -12,7 +12,8 @@
 }
 
 .poster{
-    margin-right: 100px;
+    margin-right: 20px;
+    margin-left: 20px;
     width:80%
 }
 .ageRating{
@@ -49,3 +50,8 @@
         align-items: center;
     }
   }
+
+.movieBox{
+    margin-left: 20px;
+    margin-right: 20px;
+}

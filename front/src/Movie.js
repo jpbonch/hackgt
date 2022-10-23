@@ -14,7 +14,7 @@ function Movie(props) {
           alt="kys"
           className="poster"
         ></img>
-        <div>
+        <div className="movieBox">
           <h2 className="movieTitle">THE GRUMPY COLLECTION</h2>
           <div>
             <span>1993</span>&emsp;
@@ -25,10 +25,7 @@ function Movie(props) {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            aliquip ex ea commodo consequat.
           </p><br></br>
           <h2 className="percentageMatch">% MATCH</h2>
           <Slider sx={{ m: 0 }} disabled defaultValue={80} aria-label="Disabled slider" valueLabelDisplay="on" />

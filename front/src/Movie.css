@@ -6,17 +6,16 @@
 .Movie{
     /* text-align: center; */
     display: flex;
-    width: 900px;
     margin: auto;
-    height: 400px;
     text-align: left;
-    align-items: center;
+    
 }
 
 
 @media only screen and (max-width: 600px) {
     .Movie{
         flex-direction: column;
+        align-items: center;
     }
     .poster{
         width: 50%;

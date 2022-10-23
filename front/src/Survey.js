@@ -15,7 +15,7 @@ function Survey(props) {
           }
           alt="Poster"
         ></img>
-        <div>
+        <div className="movieBox">
           <h2 className="movieTitle" style={{ "margin-bottom": "10px" }}>
             {props.movie["title"].toUpperCase()}
           </h2>

@@ -30,7 +30,8 @@ const theme = createTheme({
 
 
 
-const socket = io("https://" + document.domain + ":" + window.location.port);
+// const socket = io("https://" + document.domain + ":" + window.location.port);
+const socket = io("http://localhost:3000");
 
 async function getCode() {
   let url = 'https://matchflixgt.herokuapp.com/getCode';
@@ -188,7 +189,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
       <div className='header'>
-        <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button>
+        {/* <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button> */}
         <h1 className='title'>MATCHFLIX</h1>
       </div>
       {showSessionButtons && (
