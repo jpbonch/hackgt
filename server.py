@@ -117,9 +117,7 @@ def receive_user_ratings():
 
     if code in dictionary:
         others_movie_prediction_dict = dictionary[code][1]
-        common_movies = [(x, others_movie_prediction_dict[x], movie_and_prediction_dict[x]) for x in movie_and_prediction_dict.keys() if x[0] in others_movie_prediction_dict]
-        
-        common_movies_list = [movie for movie in common_movies.keys()]
+        common_movies_list = [x for x in movie_and_prediction_dict.keys() if x in others_movie_prediction_dict]
         
         if len(common_movies_list) > 0:
             common_movies_list.sort(reverse=True, key= lambda x: (
