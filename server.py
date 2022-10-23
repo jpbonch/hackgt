@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from flask_socketio import SocketIO, emit, join_room
 from flask_cors import CORS, cross_origin
 import random
+import os
 
 app = Flask(__name__, static_folder="build/static", template_folder="build")
 app.config['SECRET_KEY'] = 'secret!'
@@ -94,4 +95,4 @@ def get_final_movies():
     )
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=int(os.getenv('PORT')))
