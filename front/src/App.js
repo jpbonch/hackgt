@@ -245,11 +245,11 @@ function App() {
           label=""
           fullWidth
           className="linkfield"
-          defaultValue={`https://matchflixgt.herokuapp.com/${code}`}
+          defaultValue={`https://matchflixgt.herokuapp.com/#/${code}`}
           InputProps={{
             readOnly: true,
           }}
-        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
+        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/#/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
        </div>)}
         {userHasJoined && (
         <div>
