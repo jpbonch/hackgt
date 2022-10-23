@@ -3,24 +3,12 @@ import Movie from "./Movie";
 import MovieListing from "./MovieListing";
 
 
-async function getFinalMovies() {
-    let url = 'https://matchflixgt.herokuapp.com/finalMovies';
-    try {
-        return fetch(url).then((res) => res.text())
-        .then((text) => {
-            return JSON.parse(text);
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-function FinalMoviePage() {
+function FinalMoviePage(props) {
     const [numberOneMovie, setNumberOneMovie] = React.useState([]);
     const [movies, setMovies] = React.useState([]);
 
-    const asyncFunction = async () => {
-        const data = await getFinalMovies();
+    const asyncFunction = async (props) => {
+        const data = props.data;
 
         //add functino to catch error or smt
         setNumberOneMovie(data[0]);
