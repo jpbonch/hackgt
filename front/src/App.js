@@ -207,7 +207,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
       <div className='header'>
-        <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button>
+        {/* <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button> */}
         <h1 className='title'>MATCHFLIX</h1>
       </div>
       {showSessionButtons && (
@@ -277,8 +277,10 @@ function App() {
           defaultValue={`https://matchflixgt.herokuapp.com/#/${code}`}
           InputProps={{
             readOnly: true,
+            endAdornment: <Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/#/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button>
           }}
-        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/#/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
+          sx={{ input: { color: 'white' } }}
+        ></TextField></div>
        </div>)}
         {userHasJoined && (
         <div>

@@ -14,7 +14,7 @@ function FinalMoviePage(props) {
         setNumberOneMovie(data[0]);
         const array = []
         for (let i = 1; i < data.length; i++) {
-            array.push(<MovieListing movie={data[i]} />)
+            array.push(<MovieListing key={i} listId={i+1} movie={data[i]} />)
         }
         setMovies(array);
     }
@@ -24,9 +24,9 @@ function FinalMoviePage(props) {
     }, [])
 
     return (
-        <div>
+        <div style={{marginBottom: "100px"}}>
             <Movie movie={numberOneMovie}></Movie>
-            <MovieListing movies={movies.slice(1)}></MovieListing>
+            {movies}
         </div>
     )
 }
