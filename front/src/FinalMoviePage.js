@@ -4,7 +4,7 @@ import MovieListing from "./MovieListing";
 
 
 async function getFinalMovies() {
-    let url = 'https://moviematchgt.herokuapp.com/finalMovies';
+    let url = 'https://matchflixgt.herokuapp.com/finalMovies';
     try {
         return fetch(url).then((res) => res.text())
         .then((text) => {

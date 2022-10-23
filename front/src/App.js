@@ -33,7 +33,7 @@ const theme = createTheme({
 const socket = io("https://" + document.domain + ":" + window.location.port);
 
 async function getCode() {
-  let url = 'https://moviematchgt.herokuapp.com/getCode';
+  let url = 'https://matchflixgt.herokuapp.com/getCode';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -45,7 +45,7 @@ async function getCode() {
 }
 
 async function getMovies() {
-  let url = 'https://moviematchgt.herokuapp.com/movies';
+  let url = 'https://matchflixgt.herokuapp.com/movies';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -157,7 +157,7 @@ function App() {
       const newArray = [{id: id, value: val}].concat(ratings);
       setRatings(newArray);
       console.log(newArray)
-      fetch('https://moviematchgt.herokuapp.com/userRatings', {
+      fetch('https://matchflixgt.herokuapp.com/userRatings', {
         method: 'POST', 
         body: JSON.stringify(newArray)
       })
@@ -188,7 +188,7 @@ function App() {
       <ThemeProvider theme={theme}>
       <div className='header'>
         <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button>
-        <h1 className='title'>MOVIE MATCH</h1>
+        <h1 className='title'>MATCHFLIX</h1>
       </div>
       {showSessionButtons && (
         <div>
@@ -235,11 +235,11 @@ function App() {
           label=""
           fullWidth
           className="linkfield"
-          defaultValue={`https://moviematchgt.herokuapp.com/${code}`}
+          defaultValue={`https://matchflixgt.herokuapp.com/${code}`}
           InputProps={{
             readOnly: true,
           }}
-        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://moviematchgt.herokuapp.com/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
+        ></TextField><Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button></div>
        </div>)}
         {userHasJoined && (
         <div>
