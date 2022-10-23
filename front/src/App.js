@@ -33,7 +33,7 @@ const theme = createTheme({
 const socket = io("https://" + document.domain + ":" + window.location.port);
 
 async function getCode() {
-  let url = '/getCode';
+  let url = 'https://moviematchgt.herokuapp.com/getCode';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -45,7 +45,7 @@ async function getCode() {
 }
 
 async function getMovies() {
-  let url = '/movies';
+  let url = 'https://moviematchgt.herokuapp.com/movies';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -157,7 +157,7 @@ function App() {
       const newArray = [{id: id, value: val}].concat(ratings);
       setRatings(newArray);
       console.log(newArray)
-      fetch('/userRatings', {
+      fetch('https://moviematchgt.herokuapp.com/userRatings', {
         method: 'POST', 
         body: JSON.stringify(newArray)
       })
