@@ -132,6 +132,7 @@ def receive_user_ratings():
 
         
         request.get_data().decode('ascii')['array']
+    emit('finished-training', 'sampleMessage', to=code, include_self=False)
     print(request.get_data().decode('ascii')['array'])
     return request.get_data().decode('ascii')['array']
 
@@ -139,6 +140,7 @@ def receive_user_ratings():
 @app.route('/finalMovies')
 @cross_origin(origin='*')
 def get_final_movies():
+    code =  request.args.get('code')
     return jsonify({
             'id': 1,
             'title': "The Grumpy Collection",

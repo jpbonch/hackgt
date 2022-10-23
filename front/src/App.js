@@ -71,10 +71,23 @@ function App() {
   const [waiting, setShowWaiting] = useState(false);
   const [otherUserFinished, setOtherUserFinished] = useState(false);
   const [invalidCode, setInvalidCode] = useState(false);
+  const [trainingWaiting, setShowTrainingWaiting] = useState(false);
 
   socket.on('connect', () => {
     console.log(`You connected with id ${socket.id}`);
   })
+
+  async function getFinalMovies() {
+    let url = `https://matchflixgt.herokuapp.com/finalMovies?code=${code}`;
+    try {
+        return fetch(url).then((res) => res.text())
+        .then((text) => {
+            return JSON.parse(text);
+        })
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
   //Just created this to add async functionality to socket
   async function surveySetter() {
@@ -103,6 +116,10 @@ function App() {
     console.log("Other finished!")
     setOtherUserFinished(true);
     setShowWaiting(false);
+  })
+
+  socket.on('finished-training', () => {
+    setShowTrainingWaiting(false);
   })
 
   const joinRoom = (code) => {
@@ -233,6 +250,16 @@ function App() {
         </div>
       )}
 
+      {trainingWaiting && (
+        <div>
+          
+          <div class="loader-wrapper">
+          <div class="loader"></div>
+        </div>
+        Waiting for AI...
+        </div>
+      )}
+
       {showCode && !(userHasJoined) && (
         <div>
           <p><i>SHARE CODE:</i></p>
@@ -259,9 +286,9 @@ function App() {
         }
         
 
-      {(finishedSurvey && otherUserFinished) && (
+      {(finishedSurvey && otherUserFinished && !trainingWaiting) && (
         <div>
-          <FinalMoviePage />
+          <FinalMoviePage data={async () => {return await getFinalMovies()}}/>
         </div>
       )}
       </ThemeProvider>
