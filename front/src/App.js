@@ -160,7 +160,7 @@ function App() {
       console.log(newArray)
       fetch('https://matchflixgt.herokuapp.com/userRatings', {
         method: 'POST', 
-        body: JSON.stringify(newArray)
+        body: {array: JSON.stringify(newArray), id: code}
       })
     }
     setRatings([...ratings, {id: id, value: val}])

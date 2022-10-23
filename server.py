@@ -61,11 +61,21 @@ def return_code():
     print('call has been made')
     return str(random.randint(10000, 99999))
 
+dictionary = {}
+
 @app.route('/userRatings', methods = ['POST'])
 @cross_origin(origin='*')
 def receive_user_ratings():
-    print(request.get_data().decode('ascii'))
-    return request.get_data().decode('ascii')
+    print(dictionary)
+    code = request.get_data().decode('ascii')['code']
+    print(code)
+    if code in dictionary.keys():
+        #run ML here with dictionary['code'] (User 1) and request.get_data().decode('ascii')['array'] (User 2)
+        del dictionary[code]
+    else:
+        dictionary[code] = request.get_data().decode('ascii')['array']
+    print(request.get_data().decode('ascii')['array'])
+    return request.get_data().decode('ascii'['array'])
 
 @app.route('/finalMovies')
 @cross_origin(origin='*')
