@@ -6,12 +6,12 @@ from flask_cors import CORS, cross_origin
 import random
 import os
 import json
-import keras
+import tensorflow
 import numpy as np
 import pandas as pd
 
 # Load ML model and weights, process data
-reconstructed_model = keras.models.load_model("myModel2")
+reconstructed_model = tensorflow.keras.models.load_model("myModel2")
 movies = pd.read_csv('movies500.csv')
 
 item_data = list(set(movies.id))
@@ -52,29 +52,56 @@ def index():
 @app.route('/movies')
 @cross_origin(origin='*')
 def return_movies():
-    return jsonify({
-            'id': 1,
-            'title': "The Grumpy Collection",
-            'ageRating': "PG-13",
-            'duration': "1h 56m",
-            'genres': "Comedy, Family",
-            'cast': "Evan Peters, Chris Hemsworth",
-            'year': "1993",
-            'synopsis':
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        },
-        {
-            'id': 2,
-            'title': "VKMFLVKSMVMLKMV",
-            'ageRating': "PG-13",
-            'duration': "1h 56m",
-            'genres': "Comedy, Family",
-            'cast': "Evan Peters, Chris Hemsworth",
-            'year': "1993",
-            'synopsis':
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        }
-    )
+    return_object = []
+
+    for i in range(6):
+        r = random.randint(0,500)
+        movie = movies.iloc[r]
+        movie_title = movie['title']
+        genres = movie['genres']
+        id = movie['id']
+        movie_genres = ", ".join([x.name for x in genres])
+        movie_poster_path = movie['poster_path']
+        movie_vote_average = movie['vote_average']
+        movie_description = movie['overview']
+        
+        return_object.append({
+            'id': id,
+            'title': movie_title,
+            'genres': movie_genres,
+            'synopsis': movie_description,
+            'ageRating': movie_vote_average,
+            'poster_path': movie_poster_path,
+
+        })
+
+    return jsonify(return_object)
+
+
+    
+    # return jsonify({
+    #         'id': 1,
+    #         'title': "The Grumpy Collection",
+    #         'ageRating': "PG-13",
+    #         'duration': "1h 56m",
+    #         'genres': "Comedy, Family",
+    #         'cast': "Evan Peters, Chris Hemsworth",
+    #         'year': "1993",
+    #         'synopsis':
+    #         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    #     },
+    #     {
+    #         'id': 2,
+    #         'title': "VKMFLVKSMVMLKMV",
+    #         'ageRating': "PG-13",
+    #         'duration': "1h 56m",
+    #         'genres': "Comedy, Family",
+    #         'cast': "Evan Peters, Chris Hemsworth",
+    #         'year': "1993",
+    #         'synopsis':
+    #         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doeiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    #     }
+    # )
 
 @app.route('/getCode')
 @cross_origin(origin='*')
