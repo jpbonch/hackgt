@@ -30,11 +30,10 @@ const theme = createTheme({
 
 
 
-const socket = io("https://" + document.domain + ":" + window.location.port);
-//const socket = io("http://localhost:3000")
+const socket = io(document.domain + ":" + window.location.port);
 
 async function getCode() {
-  let url = 'https://matchflixgt.herokuapp.com/getCode';
+  let url = '/getCode';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -46,7 +45,7 @@ async function getCode() {
 }
 
 async function getMovies() {
-  let url = 'https://matchflixgt.herokuapp.com/movies';
+  let url = '/movies';
   try {
       return fetch(url).then((res) => res.text())
       .then((text) => {
@@ -79,7 +78,7 @@ function App() {
   })
 
   async function getFinalMovies() {
-    let url = `https://matchflixgt.herokuapp.com/finalMovies?code=${code}`;
+    let url = `/finalMovies?code=${code}`;
     try {
         return fetch(url).then((res) => res.text())
         .then((text) => {
@@ -177,7 +176,7 @@ function App() {
       const newArray = [{id: id, value: val}].concat(ratings);
       setRatings(newArray);
       console.log(newArray)
-      fetch('http://localhost:3000/userRatings', {
+      fetch('/userRatings', {
         method: 'POST', 
         body: JSON.stringify({array: newArray, id: code})
       })
@@ -207,7 +206,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
       <div className='header'>
-        {/* <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button> */}
+        <button variant="contained" onClick={handleBack} class="backButton"><HomeIcon></HomeIcon></button>
         <h1 className='title'>MATCHFLIX</h1>
       </div>
       {showSessionButtons && (
@@ -274,10 +273,10 @@ function App() {
           label=""
           fullWidth
           className="linkfield"
-          defaultValue={`https://matchflixgt.herokuapp.com/#/${code}`}
+          defaultValue={window.location.href + `#/${code}`}
           InputProps={{
             readOnly: true,
-            endAdornment: <Button className="copyButton" onClick={() => navigator.clipboard.writeText(`https://matchflixgt.herokuapp.com/#/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button>
+            endAdornment: <Button className="copyButton" onClick={() => navigator.clipboard.writeText(window.location.href + `#/${code}`)}><img src={Clipboard} alt="copy" className='clipboard'></img></Button>
           }}
           sx={{ input: { color: 'white' } }}
         ></TextField></div>

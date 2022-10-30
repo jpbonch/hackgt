@@ -8,6 +8,7 @@ import json
 import tensorflow
 import numpy as np
 import pandas as pd
+import ast
 
 # Load ML model and weights, process data
 reconstructed_model = tensorflow.keras.models.load_model("myModel2")
@@ -57,9 +58,9 @@ def return_movies():
         r = random.randint(0,500)
         movie = movies.iloc[r]
         movie_title = movie['title']
-        genres = movie['genres']
+        genres = json.loads(movie['genres'])
         id = movie['id']
-        movie_genres = ", ".join([x.name for x in genres])
+        movie_genres = ", ".join([x['name'] for x in genres])
         movie_poster_path = movie['poster_path']
         movie_vote_average = movie['vote_average']
         movie_description = movie['overview']
@@ -230,4 +231,4 @@ def get_final_movies():
         # }
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=int(os.environ.get('PORT', 3000)))
+    socketio.run(app, host='0.0.0.0',port=3000)
