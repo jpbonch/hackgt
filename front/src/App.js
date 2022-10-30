@@ -30,7 +30,7 @@ const theme = createTheme({
 
 
 
-const socket = io(document.domain + ":" + window.location.port);
+const socket = io(document.domain + ":" + 3000);
 
 async function getCode() {
   let url = '/getCode';
